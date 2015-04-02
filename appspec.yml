@@ -1,0 +1,12 @@
+version: 0.0
+os: ubuntu
+files:
+   - source: /  
+     destination: /home/ubuntu/MileStone3_App
+hooks:
+   BeforeInstall:
+    - location: start.sh
+      runas: root
+   AfterInstall:
+    - location: script.sh
+      runas: root
