@@ -56,4 +56,4 @@
 ```
 #### Ansible Running
 
-![ScreenShot](AnsibleRunning.png)
+![ScreenShot](RunningAnsible.png)
