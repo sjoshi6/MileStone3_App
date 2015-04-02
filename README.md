@@ -54,3 +54,6 @@
     async: 30
     poll: 0
 ```
+#### Ansible Running
+
+![ScreenShot](AnsibleRunning.png)
