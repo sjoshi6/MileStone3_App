@@ -17,6 +17,8 @@
 ---
 - hosts: all
   sudo: yes
+  vars:
+   redis_version: 2.8.19
   tasks:
   - name: install basics
     apt: update_cache=yes pkg={{ item }}
@@ -37,4 +39,18 @@
 
   - name: make soft link for nodejs
     file: state=link src=/usr/bin/nodejs dest=/usr/bin/node
+
+  - name: Download Redis
+    get_url: url=http://download.redis.io/releases/redis-{{redis_version}}.tar.gz dest=/tmp
+
+  - name: Untar Redis
+    command: chdir=/tmp creates=redis-{{redis_version}} tar -xzf redis-{{redis_version}}.tar.gz
+
+  - name: Install Redis
+    command: creates=/usr/local/bin/redis-server chdir=/tmp/redis-{{redis_version}} make install
+
+  - name: Launch Redis 1
+    command: chdir=/tmp/redis-{{redis_version}}/src ./redis-server --port 7777
+    async: 30
+    poll: 0
 ```
