@@ -6,7 +6,8 @@
 ## Hosts file
 ```
 [ubuntu]
-54.187.199.56
+52.10.124.81
+52.11.9.210
 ```
 
 ####
@@ -57,3 +58,35 @@
 #### Ansible Running
 
 ![ScreenShot](RunningAnsible.png)
+
+To demonstrate the functionality of canary and production release, we have used two EC2 instances. In case of a normal release, we deploy our application to all the EC2 instances (in our case, two) and in case of a canary release, we deploy our application to only a subset of EC2 instances(in our case just one).
+
+*We have two Jenkins Jobs:*
+1. SharePassApp --> Production Release Job
+2. CanaryRelease --> Canary Release Job
+
+Similarly, we have two branches in our git repository, **developer** and **production** branch.
+Both these branches have a respective Jenkins Hook connected to them that triggers CanaryRelase and SharePassApp jobs in Jenkins.
+//Add Jenkins Jobs Screenshot
+
+Both the jobs are configured to deploy to AWS Code Deploy.
+//Add Jenkins AWS Deployment Configuaration Screenshots
+
+
+The process of Code Deploy is as follows:
+1 - The Jenkins Job has a POST BUILD step to AWS Code Deploy.
+2 - The built project gets pushed to Amazon AWS S3 bucket.
+3 - The AWSCodeDeploy application pulls this data from S3 and deploys it onto the EC2 instances.
+4 - Post Deploy shell script executes and starts the deployed application.
+
+'SharePassApp' Jenkins job caters to the production release. The AWSCodeDeploy step has the below configurations to deploy the code on *all* EC2 instances.
+//[Screenshot of AWSProd Deploy Jenkins Config]
+
+'CanaryRelease' Jenkins Job caters to the canary release. The AWSCodeDeploy step has the below configurations to deploy the code on *one* of the EC2 instances marked as canary.
+//[Screenshot of AWSCnary Deploy Jenkins Config]
+
+The screenshots below displays the AWS Code Deploy Configuration:
+
+The screenshot below highlights a successful deploy.
+
+The screenshot below displays the two versions of the Running Application.
