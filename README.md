@@ -1,18 +1,18 @@
 # MileStone3_App
 
-## Command to run ansible and setup a configured ec2 instance
-#### ansible-playbook ./playbook.yml --private-key ./sjoshi6.pem -i private/ansible/hosts -u ubuntu
+#### Command to run ansible and setup a configured ec2 instance
+```
+ansible-playbook ./playbook.yml --private-key ./sjoshi6.pem -i private/ansible/hosts -u ubuntu
+```
 
-## Hosts file
+#### Hosts file
 ```
 [ubuntu]
 52.10.124.81
 52.11.9.210
 ```
 
-####
-
-## Playbook file
+#### Playbook file
 
 ```
 ---
