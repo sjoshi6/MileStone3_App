@@ -90,3 +90,9 @@ The screenshots below displays the AWS Code Deploy Configuration:
 The screenshot below highlights a successful deploy.
 
 The screenshot below displays the two versions of the Running Application.
+
+**Canary Release**
+![ScreenShot](CanaryRelease.png)
+
+**Production Release**
+![ScreenShot](ProdRelease.png)
