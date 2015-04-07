@@ -134,8 +134,11 @@ The AWS Code Deploy dashboard displays all the deployment events and provides th
 **Screenshot1**
 ![ScreenShot](SuccessfulDeploy.png)
 
+
 **Screenshot2**
+![ScreenShot](AWSCDGeneral.png)
+**Screenshot3**
 ![ScreenShot](AWSCDSuccess.png)
 
-**Screenshot3**
+**Screenshot4**
 ![ScreenShot](AWSCDFail.png)
