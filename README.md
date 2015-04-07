@@ -62,11 +62,14 @@
 To demonstrate the functionality of canary and production release, we have used two EC2 instances. In case of a normal release, we deploy our application to all the EC2 instances (in our case, two) and in case of a canary release, we deploy our application to only a subset of EC2 instances(in our case just one).
 
 *We have two Jenkins Jobs:*
-1. SharePassApp --> Production Release Job
-2. CanaryRelease --> Canary Release Job
+
+- 1. SharePassApp --> Production Release Job
+- 2. CanaryRelease --> Canary Release Job
 
 Similarly, we have two branches in our git repository, **developer** and **production** branch.
+
 Both these branches have a respective Jenkins Hook connected to them that triggers CanaryRelase and SharePassApp jobs in Jenkins.
+
 //Add Jenkins Jobs Screenshot
 
 Both the jobs are configured to deploy to AWS Code Deploy.
@@ -85,11 +88,20 @@ The process of Code Deploy is as follows:
 'CanaryRelease' Jenkins Job caters to the canary release. The AWSCodeDeploy step has the below configurations to deploy the code on *one* of the EC2 instances marked as canary.
 //[Screenshot of AWSCnary Deploy Jenkins Config]
 
-The screenshots below displays the AWS Code Deploy Configuration:
+####The screenshots below displays the AWS Code Deploy Configuration:
+#####Main Page of AWS Code Deploy
+![ScreenShot](AWS_CodeDeploy.png)
 
-The screenshot below highlights a successful deploy.
+#####AWS Code Deploy - Production
+![ScreenShot](AWSCodeDeploy_Prod.png)
 
-The screenshot below displays the two versions of the Running Application.
+#####AWS Code Deploy - Canary
+![ScreenShot](AWSCodeDeploy_Canary.png)
+
+####The screenshot below highlights a successful deploy.
+![ScreenShot](SuccessfulDeploy.png)
+
+####The screenshot below displays the two versions of the Running Application:
 
 **Canary Release**
 ![ScreenShot](CanaryRelease.png)
