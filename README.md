@@ -69,24 +69,27 @@ To demonstrate the functionality of canary and production release, we have used 
 Similarly, we have two branches in our git repository, **developer** and **production** branch.
 
 Both these branches have a respective Jenkins Hook connected to them that triggers CanaryRelase and SharePassApp jobs in Jenkins.
-
-//Add Jenkins Jobs Screenshot
-
-Both the jobs are configured to deploy to AWS Code Deploy.
-//Add Jenkins AWS Deployment Configuaration Screenshots
+![ScreenShot](JenkinsJobs.png)
 
 
-The process of Code Deploy is as follows:
+####The process of Code Deploy is as follows:
 1 - The Jenkins Job has a POST BUILD step to AWS Code Deploy.
 2 - The built project gets pushed to Amazon AWS S3 bucket.
 3 - The AWSCodeDeploy application pulls this data from S3 and deploys it onto the EC2 instances.
 4 - Post Deploy shell script executes and starts the deployed application.
 
-'SharePassApp' Jenkins job caters to the production release. The AWSCodeDeploy step has the below configurations to deploy the code on *all* EC2 instances.
-//[Screenshot of AWSProd Deploy Jenkins Config]
+#####'SharePassApp' Jenkins job --> production release.
+The AWSCodeDeploy step has the below configurations to deploy the code on *all* EC2 instances.
+![ScreenShot](Prod_BranchConfig.png)
+![ScreenShot](Prod_POSTBuildAWSCDeploy.png)
 
-'CanaryRelease' Jenkins Job caters to the canary release. The AWSCodeDeploy step has the below configurations to deploy the code on *one* of the EC2 instances marked as canary.
-//[Screenshot of AWSCnary Deploy Jenkins Config]
+
+#####'CanaryRelease' Jenkins Job --> canary release.
+The AWSCodeDeploy step has the below configurations to deploy the code on *one* of the EC2 instances marked as canary.
+![ScreenShot](Dev_BranchConfig.png)
+![ScreenShot](Dev_PostBuildDeploy.png)
+
+
 
 ####The screenshots below displays the AWS Code Deploy Configuration:
 #####Main Page of AWS Code Deploy
@@ -98,8 +101,14 @@ The process of Code Deploy is as follows:
 #####AWS Code Deploy - Canary
 ![ScreenShot](AWSCodeDeploy_Canary.png)
 
+
+
+
 ####The screenshot below highlights a successful deploy.
 ![ScreenShot](SuccessfulDeploy.png)
+
+
+
 
 ####The screenshot below displays the two versions of the Running Application:
 
