@@ -74,12 +74,11 @@ Similarly, we have two branches in our git repository, **developer** and **produ
 Both these branches have a respective Jenkins Hook connected to them that triggers CanaryRelase and SharePassApp jobs in Jenkins.
 ![ScreenShot](JenkinsJobs.png)
 
-
 ####The process of Code Deploy is as follows:
-1 - The Jenkins Job has a POST BUILD step to AWS Code Deploy.
-2 - The built project gets pushed to Amazon AWS S3 bucket.
-3 - The AWSCodeDeploy application pulls this data from S3 and deploys it onto the EC2 instances.
-4 - Post Deploy shell script executes and starts the deployed application.
+-1 - The Jenkins Job has a POST BUILD step to AWS Code Deploy.
+-2 - The built project gets pushed to Amazon AWS S3 bucket.
+-3 - The AWSCodeDeploy application pulls this data from S3 and deploys it onto the EC2 instances.
+-4 - Post Deploy shell script executes and starts the deployed application.
 
 #####'SharePassApp' Jenkins job --> production release.
 The AWSCodeDeploy step has the below configurations to deploy the code on *all* EC2 instances.
