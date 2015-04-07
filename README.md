@@ -59,6 +59,9 @@ ansible-playbook ./playbook.yml --private-key ./sjoshi6.pem -i private/ansible/h
 
 ![ScreenShot](RunningAnsible.png)
 
+
+#### Deployment Process
+
 To demonstrate the functionality of canary and production release, we have used two EC2 instances. In case of a normal release, we deploy our application to all the EC2 instances (in our case, two) and in case of a canary release, we deploy our application to only a subset of EC2 instances(in our case just one).
 
 *We have two Jenkins Jobs:*
