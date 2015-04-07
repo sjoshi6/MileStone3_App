@@ -119,3 +119,23 @@ The AWSCodeDeploy step has the below configurations to deploy the code on *one* 
 
 **Production Release**
 ![ScreenShot](ProdRelease.png)
+
+
+
+
+
+#### The ability to monitor the deployed application for alerts/failures
+
+######For reporting we are using the inbuilt monitoring provided by AWS Code Deploy and Jenkins.
+
+The Jenkins Job indicates whether the project was correctly built and deployed to an S3 bucket.(refer Screenshot 1)
+The AWS Code Deploy dashboard displays all the deployment events and provides the deployment status.(refer Screenshot 2)
+
+**Screenshot1**
+![ScreenShot](SuccessfulDeploy.png)
+
+**Screenshot2**
+![ScreenShot](AWSCDSuccess.png)
+
+**Screenshot3**
+![ScreenShot](AWSCDFail.png)
