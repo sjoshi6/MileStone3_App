@@ -154,9 +154,9 @@ This proxy is available in the file named 'infrastructure.js' of this repo. All 
 
 #####Screenshot of Infrastructure pointing to Production Release
 
-![ScreenShot](AWSCDFail.png)
+![ScreenShot](Inf_Prod.png)
 
 
 #####Screenshot of Infrastructure pointing to Canary Release
 
-![ScreenShot](AWSCDFail.png)
+![ScreenShot](Inf_Can.png)
