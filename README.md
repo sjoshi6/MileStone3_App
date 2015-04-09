@@ -145,3 +145,18 @@ The AWS Code Deploy dashboard displays all the deployment events and provides th
 
 **Screenshot4**
 ![ScreenShot](AWSCDFail.png)
+
+
+#### Routing Infrastructure
+
+We have configured an additional node.js proxy that will alternate the servers between Canary Release and Production Release.
+This proxy is available in the file named 'infrastructure.js' of this repo. All the requests to infrastructure on port 8080 are redirected to the respective released servers on port 8181 in an alternating fashion.
+
+#####Screenshot of Infrastructure pointing to Production Release
+
+![ScreenShot](AWSCDFail.png)
+
+
+#####Screenshot of Infrastructure pointing to Canary Release
+
+![ScreenShot](AWSCDFail.png)
