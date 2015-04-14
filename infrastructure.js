@@ -30,7 +30,7 @@ var infrastructure =
 
     var server  = http.createServer(function(req, res)
     {
-        TARGET = servers.pop()
+        TARGET = servers.shift()
         servers.push(TARGET)
 
         proxy.web( req, res, {target: TARGET } );
