@@ -150,7 +150,30 @@ The AWS Code Deploy dashboard displays all the deployment events and provides th
 #### Routing Infrastructure
 
 We have configured an additional node.js proxy that will alternate the servers between Canary Release and Production Release.
-This proxy is available in the file named 'infrastructure.js' of this repo. All the requests to infrastructure on port 8080 are redirected to the respective released servers on port 8181 in an alternating fashion.
+This proxy is available in the file named 'infrastructure.js' of this repo. All the requests to infrastructure on port 8080 are redirected to the respective released servers on port 8181 in an alternating fashion. 
+
+This proxy also acts as a **canary release Monitor** it opens a socket.io connection on port 3000 and it accepts connections from the daemons setup on each deployed server. 
+
+As soon as the canary server breaches the set CPU threshold, the proxy redirects all the requests to Production server.
+The code for CPU monitoring can be found at the below link:
+[Monitoring App Repo:](https://github.com/sjoshi6/DevOps_Monitoring.git)
+
+######Code Snippet
+```
+var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function (socket) {
+
+      socket.on('heartbeat',function(data){
+            if(data.cpu > 200 && data.Name == 'canary')
+              {
+                servers = [GREEN]
+              }
+      });
+
+})
+```
+
 
 #####Screenshot of Infrastructure pointing to Production Release
 
