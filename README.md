@@ -183,3 +183,191 @@ io.sockets.on('connection', function (socket) {
 #####Screenshot of Infrastructure pointing to Canary Release
 
 ![ScreenShot](Inf_Can.png)
+
+####Jenkins Configuration
+
+```
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors/>
+  <version>1.607</version>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
+  <securityRealm class="hudson.security.SecurityRealm$None"/>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>All</primaryView>
+  <slaveAgentPort>0</slaveAgentPort>
+  <label></label>
+  <nodeProperties/>
+  <globalNodeProperties/>
+</hudson>
+```
+####Jenkins Production Job Configuration:
+
+```
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.1">
+      <projectUrl>https://github.com/sjoshi6/MileStone3_App.git/</projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/sjoshi6/MileStone3_App.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/production</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.11.1">
+      <spec></spec>
+    </com.cloudbees.jenkins.GitHubPushTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>sudo apt-get update -y
+sudo apt install npm -y
+sudo apt-get install npm -y
+sudo apt-get install nodejs-legacy -y
+#sudo ln -s /usr/bin/nodejs /usr/sbin/node
+npm install
+#cd /var/lib/jenkins/jobs/SharePassApp/workspace
+#sudo scp confirmed.html front_page.html incorrect.html login.html main.js package.json record.html signup.html ubuntu@52.11.58.88:/home/ubuntu/MileStone3_App
+#sudo scp -r node_modules/ ubuntu@52.11.58.88:/home/ubuntu/MileStone3_App</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <com.amazonaws.codedeploy.AWSCodeDeployPublisher plugin="codedeploy@1.5">
+      <s3bucket>awsdeploysjoshi6</s3bucket>
+      <s3prefix></s3prefix>
+      <applicationName>AWSCodeDeploy</applicationName>
+      <deploymentGroupName>AWSCodeDeploy</deploymentGroupName>
+      <deploymentConfig>CodeDeployDefault.AllAtOnce</deploymentConfig>
+      <waitForCompletion>false</waitForCompletion>
+      <iamRoleArn></iamRoleArn>
+      <region>us-west-2</region>
+      <includes>**</includes>
+      <excludes></excludes>
+      <proxyHost></proxyHost>
+      <proxyPort>0</proxyPort>
+      <awsAccessKey>AKIAIE722VMWXR3MKDAA</awsAccessKey>
+      <awsSecretKey>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</awsSecretKey>
+      <credentials>awsAccessKey</credentials>
+    </com.amazonaws.codedeploy.AWSCodeDeployPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>
+```
+
+####Jenkins Canary Release Job Configuration:
+
+```
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.1">
+      <projectUrl>https://github.com/sjoshi6/MileStone3_App.git/</projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/sjoshi6/MileStone3_App.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/developer</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.11.1">
+      <spec></spec>
+    </com.cloudbees.jenkins.GitHubPushTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>sudo apt-get update -y
+sudo apt install npm -y
+sudo apt-get install npm -y
+sudo apt-get install nodejs-legacy -y
+#sudo ln -s /usr/bin/nodejs /usr/sbin/node
+npm install
+#cd /var/lib/jenkins/jobs/SharePassApp/workspace
+#sudo scp confirmed.html front_page.html incorrect.html login.html main.js package.json record.html signup.html ubuntu@52.11.58.88:/home/ubuntu/MileStone3_App
+#sudo scp -r node_modules/ ubuntu@52.11.58.88:/home/ubuntu/MileStone3_App</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <com.amazonaws.codedeploy.AWSCodeDeployPublisher plugin="codedeploy@1.5">
+      <s3bucket>awsdeploysjoshi6</s3bucket>
+      <s3prefix></s3prefix>
+      <applicationName>AWSCodeDeploy</applicationName>
+      <deploymentGroupName>CanaryDeploy</deploymentGroupName>
+      <deploymentConfig>CodeDeployDefault.AllAtOnce</deploymentConfig>
+      <waitForCompletion>false</waitForCompletion>
+      <iamRoleArn></iamRoleArn>
+      <region>us-west-2</region>
+      <includes>**</includes>
+      <excludes></excludes>
+      <proxyHost></proxyHost>
+      <proxyPort>0</proxyPort>
+      <awsAccessKey>AKIAIE722VMWXR3MKDAA</awsAccessKey>
+      <awsSecretKey>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</awsSecretKey>
+      <credentials>awsAccessKey</credentials>
+    </com.amazonaws.codedeploy.AWSCodeDeployPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>
+```
