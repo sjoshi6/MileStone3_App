@@ -1,11 +1,16 @@
 # MileStone3_App
 
-#### Command to run ansible and setup a configured ec2 instance
+#### Command to run ansible and setup a configured EC2 instance
+
+Executing an ansible playbook sets up the configured environments for deployment.
 ```
 ansible-playbook ./playbook.yml --private-key ./sjoshi6.pem -i private/ansible/hosts -u ubuntu
 ```
 
 #### Hosts file
+
+This file specifies which EC2 instances need to be configured.
+
 ```
 [ubuntu]
 52.10.124.81
@@ -13,6 +18,8 @@ ansible-playbook ./playbook.yml --private-key ./sjoshi6.pem -i private/ansible/h
 ```
 
 #### Playbook file
+
+This is the playbook.yml file used for configuring the environments.
 
 ```
 ---
@@ -55,16 +62,16 @@ ansible-playbook ./playbook.yml --private-key ./sjoshi6.pem -i private/ansible/h
     async: 30
     poll: 0
 ```
+
 #### Ansible Running
 
 ![ScreenShot](RunningAnsible.png)
-
 
 #### Deployment Process
 
 To demonstrate the functionality of canary and production release, we have used two EC2 instances. In case of a normal release, we deploy our application to all the EC2 instances (in our case, two) and in case of a canary release, we deploy our application to only a subset of EC2 instances(in our case just one).
 
-*We have two Jenkins Jobs:*
+**We have two Jenkins Jobs:**
 
 - 1. SharePassApp --> Production Release Job
 - 2. CanaryRelease --> Canary Release Job
@@ -72,6 +79,7 @@ To demonstrate the functionality of canary and production release, we have used 
 Similarly, we have two branches in our git repository, **developer** and **production** branch.
 
 Both these branches have a respective Jenkins Hook connected to them that triggers CanaryRelase and SharePassApp jobs in Jenkins.
+
 ![ScreenShot](JenkinsJobs.png)
 
 ####The process of Code Deploy is as follows:
@@ -152,13 +160,14 @@ The AWS Code Deploy dashboard displays all the deployment events and provides th
 We have configured an additional node.js proxy that will alternate the servers between Canary Release and Production Release.
 This proxy is available in the file named 'infrastructure.js' of this repo. All the requests to infrastructure on port 8080 are redirected to the respective released servers on port 8181 in an alternating fashion. 
 
-This proxy also acts as a **canary release Monitor** it opens a socket.io connection on port 3000 and it accepts connections from the daemons setup on each deployed server. 
+This proxy also acts as a **Canary Release Monitor** it opens a **socket.io** connection on port 3000 and it accepts connections from the daemons setup on each deployed server. 
 
 As soon as the canary server breaches the set CPU threshold, the proxy redirects all the requests to Production server.
 The code for CPU monitoring can be found at the below link:
+
 [Monitoring App Repo:](https://github.com/sjoshi6/DevOps_Monitoring.git)
 
-######Code Snippet
+######Code Snippet for checking CPU Threshold
 ```
 var io = require('socket.io').listen(server);
 
@@ -222,7 +231,10 @@ io.sockets.on('connection', function (socket) {
   <globalNodeProperties/>
 </hudson>
 ```
+
+
 ####Jenkins Production Job Configuration:
+
 
 ```
 <?xml version='1.0' encoding='UTF-8'?>
