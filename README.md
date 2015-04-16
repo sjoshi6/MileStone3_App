@@ -300,8 +300,8 @@ npm install
       <excludes></excludes>
       <proxyHost></proxyHost>
       <proxyPort>0</proxyPort>
-      <awsAccessKey>AKIAIE722VMWXR3MKDAA</awsAccessKey>
-      <awsSecretKey>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</awsSecretKey>
+      <awsAccessKey></awsAccessKey>
+      <awsSecretKey></awsSecretKey>
       <credentials>awsAccessKey</credentials>
     </com.amazonaws.codedeploy.AWSCodeDeployPublisher>
   </publishers>
@@ -375,8 +375,8 @@ npm install
       <excludes></excludes>
       <proxyHost></proxyHost>
       <proxyPort>0</proxyPort>
-      <awsAccessKey>AKIAIE722VMWXR3MKDAA</awsAccessKey>
-      <awsSecretKey>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</awsSecretKey>
+      <awsAccessKey></awsAccessKey>
+      <awsSecretKey></awsSecretKey>
       <credentials>awsAccessKey</credentials>
     </com.amazonaws.codedeploy.AWSCodeDeployPublisher>
   </publishers>
