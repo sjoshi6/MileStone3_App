@@ -47,18 +47,68 @@ app.get('/signup',function(req,res){
 
 app.post('/record',function(req,res){
 
-	var id=req.body.login;
+//	var id=req.body.login;
 	var pass = req.body.pass;
+	var randomnum = req.body.randomnum;
+	var expire = req.body.expire
 
-	client.set(String(id),String(pass));
+	var time = new Date();
+  var time_ms= time.getTime(time);
 
-	fs.readFile('record.html',function (err, data){
-		res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
-		res.write(data);
+	randomnum = randomnum + String(time_ms)
+
+//	client.set(String(id),String(pass));
+	client.set(String(randomnum),String(pass));
+//	client.expire(String(id),parseInt(expire));
+	client.expire(String(randomnum),parseInt(expire));
+
+	fs.readFile('secretlink.html',function (err, data){
+	  var data = data.toString()
+		var result = data.replace("SecretLinkToBeReplaced", "SharePass"+String(randomnum));
+		result = result.replace("Expire_Time_Replace_Holder",expire)
+		res.writeHead(200, {'Content-Type': 'text/html','Content-Length':result.length});
+		res.write(result);
 		res.end()
 	});
 
 });
+
+
+app.get(/SharePass.*/,function(req,res){
+
+	var url = req.url
+	url = url.toString()
+	url=url.replace("/SharePass","")
+	console.log(url)
+
+	client.get(url,function(err,value){
+
+			if(value == null)
+			{
+						fs.readFile('nopass.html',function (err, pagedata){
+						res.writeHead(200, {'Content-Type': 'text/html','Content-Length':pagedata.length});
+						res.write(pagedata);
+						res.end();
+						})
+
+			}
+			else
+			{
+						client.del(url)
+						fs.readFile('secretpass.html',function (err, pagedata){
+						pagedata=pagedata.toString()
+						pagedata=pagedata.replace("Shared_Password_Replace",value)
+						res.writeHead(200, {'Content-Type': 'text/html','Content-Length':pagedata.length});
+						res.write(pagedata);
+						res.end();
+						})
+
+			}
+	})
+
+});
+
+app.get('/')
 
 app.get('/login',function(req,res){
 

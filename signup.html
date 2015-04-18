@@ -1,18 +1,25 @@
 <html>
   <head>
-    <title>Welcome to SharePass</title>
+    <title>Welcome to Snap Pass</title>
   </head>
 
-  <center><h1>Welcome to SharePass!</h1></center>
-  <center><h4>Enter your details:</h4></center>
+  <center><h1>Welcome to Snap Pass!</h1></center>
   <br>
-  <body>
-    <center>
+  <br>
+  <h4>Enter your details:</h4>
+
+
+  <body style="background-color:#fffc00;font-family:Helvetica">
       <form action="/record" method="post">
-          <br>  Login Id: <input type="text" name="login" id="login"><br>
-          <br>  Password: <input type="password" name="pass" id="pass"><br>
-          <input type="submit" value="Submit">
+      <!--    <br>  Login Id: <input type="text" name="login" id="login"><br> -->
+          <br>Password: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="password" name="pass" id="pass"><br>
+          <br>RandomNumber: &nbsp;<input type="text" name="randomnum" id="randomnum"><br>
+          <br>ExpireTime: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="expire" id="expire"> seconds <br>
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="submit" value="Submit" style="width:100px">
       </form>
-    </center>
+
   </body>
 </html>
